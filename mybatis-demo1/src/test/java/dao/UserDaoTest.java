@@ -17,6 +17,7 @@ public class UserDaoTest {
         UserDao userDao = sqlSession.getMapper(UserDao.class);
         User user = userDao.selectByID(1);
         System.out.println(user);
+        sqlSession.close();
     }
 
 
@@ -27,5 +28,6 @@ public class UserDaoTest {
         UserDao userDao = sqlSession.getMapper(UserDao.class);
         List<User> user = userDao.getUserList();
         System.out.println(user);
+        sqlSession.close();
     }
 }
