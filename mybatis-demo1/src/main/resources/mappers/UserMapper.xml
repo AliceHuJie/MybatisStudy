@@ -8,6 +8,12 @@
       select * from mybatis.user where id = #{id}
     </select>
 
+    <select id="selectByMap" resultType="pojo.User" parameterType="map">
+      select * from mybatis.user where id = #{userId} and name=#{userName}
+    </select>
+
+
+
     <select id="getUserList" resultType="pojo.User">
         select * from mybatis.user
     </select>
