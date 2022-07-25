@@ -19,7 +19,7 @@
     </select>
 
     <insert id="addUser" parameterType="pojo.User">
-        insert into mybatis.user values (#{id}, #{name}, #{pwd}
+        insert into mybatis.user(id, name, pwd)  value (#{id}, #{name}, #{pwd})
     </insert>
 
     <insert id="updateUser" parameterType="pojo.User">

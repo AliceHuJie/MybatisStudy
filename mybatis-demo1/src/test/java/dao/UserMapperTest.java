@@ -37,7 +37,7 @@ public class UserMapperTest {
         // 获取
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         UserMapper userDao = sqlSession.getMapper(UserMapper.class);
-        int nums = userDao.addUser(new User(1, "aa", "aa"));
+        int nums = userDao.addUser(new User(2, "aa", "aa"));
 
         // 增删改必须提交事务，不然数据没有插入进去
         sqlSession.commit();
