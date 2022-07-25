@@ -7,6 +7,9 @@
         <property name="username" value="root"/>
         <property name="password" value="2736"/>
     </properties>
+    <typeAliases>
+        <typeAlias type="pojo.User" alias="User"></typeAlias>
+    </typeAliases>
     <!--配置连接数据的环境-->
     <environments default="development">
         <!--具体环境-->
