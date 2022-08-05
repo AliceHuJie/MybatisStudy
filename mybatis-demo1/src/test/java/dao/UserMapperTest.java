@@ -89,9 +89,12 @@ public class UserMapperTest {
         UserMapper userDao2 = sqlSession2.getMapper(UserMapper.class);
         User user2222 = userDao2.selectByID(11);   // 新的会话，再次走库 （缓存基于sqlsession）
         User user333 = userDao2.selectByID(11);     // 走缓存
+        User user344 = userDao2.selectByID(22);      // 首次查22走缓存
 
-        userDao2.updateUser(new User(13, "vv", "bb"));  // 同一个会话内修改其他数据
+//        userDao2.updateUser(new User(13, "vv", "bb"));  // 同一个会话内修改其他数据
+        userDao2.addUser(new User(89, "vv", "bb"));  // 同一个会话内修改其他数据
         User user33 = userDao2.selectByID(11);      // 再查11发现会再查数据库
+        User user33555 = userDao2.selectByID(22);      // 再查22发现会再查数据库
         sqlSession2.close();
     }
 }
