@@ -28,11 +28,20 @@ public class User {
         this.name = name;
     }
 
-    public String getPwd() {
+    public String getAa() {
         return pwd;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public void setAa(String aa) {
+        this.pwd = aa;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", password='" + pwd + '\'' +
+                '}';
     }
 }

@@ -73,4 +73,25 @@ public class UserMapperTest {
         // 增删改必须提交事务，不然数据没有插入进去
         sqlSession.close();
     }
+
+    @Test
+    public void testFirstLevelCache() {
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        UserMapper userDao = sqlSession.getMapper(UserMapper.class);
+        User user = userDao.selectByID(11);   // 会查数据库
+        User user1 = userDao.selectByID(11);    //走一级缓存
+        sqlSession.clearCache();                 // 清缓存
+        User user2 = userDao.selectByID(11);     // 查库
+        User use3 = userDao.selectByID(11);       // 缓存
+        System.out.println(user);
+        sqlSession.close();
+        SqlSession sqlSession2 = MybatisUtils.getSqlSession();
+        UserMapper userDao2 = sqlSession2.getMapper(UserMapper.class);
+        User user2222 = userDao2.selectByID(11);   // 新的会话，再次走库 （缓存基于sqlsession）
+        User user333 = userDao2.selectByID(11);     // 走缓存
+
+        userDao2.updateUser(new User(13, "vv", "bb"));  // 同一个会话内修改其他数据
+        User user33 = userDao2.selectByID(11);      // 再查11发现会再查数据库
+        sqlSession2.close();
+    }
 }

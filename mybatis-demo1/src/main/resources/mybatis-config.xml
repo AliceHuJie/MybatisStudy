@@ -7,6 +7,10 @@
         <property name="username" value="root"/>
         <property name="password" value="2736"/>
     </properties>
+    
+    <settings>
+        <setting name="logImpl" value="STDOUT_LOGGING"/>
+    </settings>
 <!--    <typeAliases>-->
 <!--        <typeAlias type="pojo.User" alias="User"></typeAlias>-->
 <!--    </typeAliases>-->
