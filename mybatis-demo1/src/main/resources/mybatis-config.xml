@@ -10,6 +10,8 @@
     
     <settings>
         <setting name="logImpl" value="STDOUT_LOGGING"/>
+<!--        显示开启全局缓存（虽然默认值也是开启）-->
+        <setting name="cacheEnabled" value="true"/>
     </settings>
 <!--    <typeAliases>-->
 <!--        <typeAlias type="pojo.User" alias="User"></typeAlias>-->
@@ -36,6 +38,7 @@
     <mappers>
 <!--        <mapper resource="mappers/UserMapper.xml"/>-->
         <mapper class="dao.UserMapper"/>
+        <mapper class="dao.CacheMapper"/>
 <!--        <package name="dao"/>-->
     </mappers>
 </configuration>

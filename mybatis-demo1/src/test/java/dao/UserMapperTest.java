@@ -2,6 +2,7 @@ package dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.junit.Test;
+import pojo.Cache;
 import pojo.User;
 import utils.MybatisUtils;
 
@@ -76,6 +77,7 @@ public class UserMapperTest {
 
     @Test
     public void testFirstLevelCache() {
+        // 一级缓存是基于数据库会话(SqlSession 对象) 默认开启
         SqlSession sqlSession = MybatisUtils.getSqlSession();
         UserMapper userDao = sqlSession.getMapper(UserMapper.class);
         User user = userDao.selectByID(11);   // 会查数据库
@@ -95,6 +97,24 @@ public class UserMapperTest {
         userDao2.addUser(new User(89, "vv", "bb"));  // 同一个会话内修改其他数据
         User user33 = userDao2.selectByID(11);      // 再查11发现会再查数据库
         User user33555 = userDao2.selectByID(22);      // 再查22发现会再查数据库
+        sqlSession2.close();
+    }
+
+    @Test
+    public void testSecondLevelCache() {  // 二级缓存，基于全局(nameSpace)的,开启需要配置
+        SqlSession sqlSession = MybatisUtils.getSqlSession();
+        CacheMapper cacheMapper = sqlSession.getMapper(CacheMapper.class);
+        cacheMapper.selectByID(11);   // 会查数据库
+        cacheMapper.selectByID(11);    //走一级缓存
+        sqlSession.close();
+        SqlSession sqlSession2 = MybatisUtils.getSqlSession();
+        CacheMapper cacheMapper2 = sqlSession2.getMapper(CacheMapper.class);
+        cacheMapper2.selectByID(11);     // 虽然是新的会话，但是走二级缓存不会查库
+        cacheMapper2.selectByID(11);       // 走缓存
+
+        cacheMapper2.add(new Cache(88, "ces"));       // 会话里进行增删改
+        cacheMapper2.selectByID(11);       // 走缓存
+
         sqlSession2.close();
     }
 }

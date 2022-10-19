@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--名称空间-->
+<mapper namespace="dao.CacheMapper">
+<!--    开启二级缓存-->
+    <cache/>
+
+    <select id="selectByID" resultType="Cache" parameterType="int" useCache="true">
+      select id, name from mybatis.cache where id = #{id}
+    </select>
+
+    <update id="update" parameterType="pojo.Cache">
+        update  mybatis.cache set id= #{id},name= #{name} where id = #{id}
+    </update>
+
+    <insert id="add" parameterType="pojo.Cache">
+        insert into mybatis.cache(id, name)  value (#{id}, #{name})
+    </insert>
+</mapper>
